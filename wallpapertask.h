@@ -7,7 +7,7 @@ class WallpaperTask : public AbstractTask
     Q_OBJECT
 public:
     WallpaperTask(const QString &filePath);
-    void start();
+    void run() override;
     void startXfce();
     void startPlasma();
     void startGnome();

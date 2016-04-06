@@ -14,19 +14,17 @@ WallpaperTask::WallpaperTask(const QString &filePath)
     m_filePath = filePath;
 }
 
-void WallpaperTask::start() {
+void WallpaperTask::run() {
     const QString de = desktopEnvironment();
     if (de == "xfce") {
         startXfce();
         return;
     } else if (de == "kde") {
         qWarning() << "Cannot set wallpaper on Plasma";
-        emit finished(false);
         return;
     }
 
     qWarning() << "unsupported desktop " << de;
-    emit finished(false);
     return;
 }
 
@@ -46,7 +44,6 @@ void WallpaperTask::startXfce() {
                 proc.waitForFinished();
             }
     }
-    emit finished(true);
 }
 
 
