@@ -18,13 +18,11 @@ void WallpaperTask::run() {
     const QString de = desktopEnvironment();
     if (de == "xfce") {
         startXfce();
-        return;
     } else if (de == "kde") {
-        qWarning() << "Cannot set wallpaper on Plasma";
-        return;
+        startPlasma();
+    } else {
+        qWarning() << "unsupported desktop " << de;
     }
-
-    qWarning() << "unsupported desktop " << de;
     return;
 }
 
@@ -48,6 +46,7 @@ void WallpaperTask::startXfce() {
 
 
 void WallpaperTask::startPlasma() {
+    qWarning() << "Cannot set wallpaper on Plasma";
 }
 
 void WallpaperTask::startGnome() {
