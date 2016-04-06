@@ -33,7 +33,14 @@ int main(int argc, char **argv)
     QScopedPointer<AbstractTask> task(AbstractTask::create(type, value));
     QMetaObject::invokeMethod(task.data(), "start", Qt::QueuedConnection);
 
-    app.connect(task.data(), &AbstractTask::finished, &app, QCoreApplication::quit);
+    app.connect(task.data(), &AbstractTask::finished, &app, [&](){
+        if (task->success()) {
+            app.exit(0);
+        }
+        qWarning() << task->errorMessage();
+        app.exit(-1);
+    }
+    );
 
     return app.exec();
 }
