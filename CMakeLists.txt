@@ -13,11 +13,14 @@ include(KDECMakeSettings)
 include(KDECompilerSettings)
 include(FeatureSummary)
 
-
-
 find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
     Core
+    Gui
     DBus
+)
+
+find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
+    WindowSystem
 )
 
 add_definitions(-Wall -std=c++11 )
@@ -31,4 +34,6 @@ set(pager_SRCS
 add_executable(theme-apply ${pager_SRCS})
 
 target_link_libraries(theme-apply
-                      Qt5::Core)
+                      Qt5::Core
+                      Qt5::Gui
+                      KF5::WindowSystem)

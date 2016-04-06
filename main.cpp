@@ -1,4 +1,4 @@
-#include <QCoreApplication>
+#include <QGuiApplication>
 #include <QDebug>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
@@ -9,7 +9,7 @@ static const QStringList validTypes = QStringList({QString("wallpaper")});
 
 int main(int argc, char **argv)
 {
-    QCoreApplication app(argc, argv);
+    QGuiApplication app(argc, argv); //QGui as we need monitor names and no. virtual desktops in some cases
 
     QCommandLineParser parser;
     parser.addPositionalArgument("type", "[wallpaper]");

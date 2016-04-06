@@ -1,7 +1,12 @@
 #include "wallpapertask.h"
 
 #include <QProcess>
+#include <QScreen>
+#include <QGuiApplication>
+
 #include <QDebug>
+
+#include <kwindowsystem.h>
 
 WallpaperTask::WallpaperTask(const QString &filePath)
     :AbstractTask()
@@ -26,14 +31,24 @@ void WallpaperTask::start() {
 }
 
 void WallpaperTask::startXfce() {
-    runProcessAndFinish("xfconf-query", QStringList({
-                            "--channel",
-                            "xfce4-desktop",
-                            "--property",
-                            "/backdrop/screen0/monitor0/image-path",
-                            "--set",
-                            m_filePath}), 0);
+    foreach(const QScreen *screen, qApp->screens()) {
+            const QString monitorName = "monitor" + screen->name();
+            for (int i=0;i<KWindowSystem::numberOfDesktops();i++) {
+                const QString workspaceName = "workspace" + QString::number(i);
+                QProcess proc;
+                proc.start("xfconf-query", QStringList({
+                                    "--channel",
+                                    "xfce4-desktop",
+                                    "--property",
+                                    "/backdrop/screen0/" + monitorName + "/" + workspaceName + "/last-image",
+                                    "--set",
+                                    m_filePath}));
+                proc.waitForFinished();
+            }
+    }
+    emit finished(true);
 }
+
 
 void WallpaperTask::startPlasma() {
 }
