@@ -2,6 +2,7 @@
 
 #include <QProcess>
 #include <QScreen>
+#include <QUrl>
 #include <QGuiApplication>
 
 #include <QDebug>
@@ -49,5 +50,10 @@ void WallpaperTask::startPlasma() {
     setError("Cannot set wallpaper on Plasma");
 }
 
-void WallpaperTask::startGnome() {
+void WallpaperTask::startGnome2() {
+    QProcess::execute("gconftool-2", QStringList({"--type=string", "--set", "/desktop/gnome/background/picture_filename", m_filePath}));
+}
+
+void WallpaperTask::startGnome3() {
+    QProcess::execute("gsettings", QStringList({"set","org.gnome.desktop.background", "picture-uri", QUrl::fromLocalFile(m_filePath).toString()}));
 }

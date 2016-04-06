@@ -10,7 +10,8 @@ public:
     void run() override;
     void startXfce();
     void startPlasma();
-    void startGnome();
+    void startGnome2();
+    void startGnome3();
 private:
     QString m_filePath;
 };
