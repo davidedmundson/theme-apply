@@ -5,14 +5,15 @@
 
 #include "abstracttask.h"
 
-static const QStringList validTypes = QStringList({QString("wallpaper")});
+//FIXME move to AbstractTask
+static const QStringList validTypes = QStringList({"wallpaper", "wmtheme"});
 
 int main(int argc, char **argv)
 {
     QGuiApplication app(argc, argv); //QGui as we need monitor names and no. virtual desktops in some cases
 
     QCommandLineParser parser;
-    parser.addPositionalArgument("type", "[wallpaper]");
+    parser.addPositionalArgument("type", "[wallpaper, wmtheme]");
     parser.addPositionalArgument("value", "the file/name of the setting to apply");
 
     parser.process(app);
@@ -28,11 +29,13 @@ int main(int argc, char **argv)
 
     if (! validTypes.contains(type)) {
         parser.showHelp();
+        return -1;
     }
 
     QScopedPointer<AbstractTask> task(AbstractTask::create(type, value));
     QMetaObject::invokeMethod(task.data(), "start", Qt::QueuedConnection);
 
+    
     app.connect(task.data(), &AbstractTask::finished, &app, [&](){
         if (task->success()) {
             app.exit(0);

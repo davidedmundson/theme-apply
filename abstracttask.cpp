@@ -3,10 +3,14 @@
 #include <QProcess>
 
 #include "wallpapertask.h"
+#include "wmthemetask.h"
 
 AbstractTask* AbstractTask::create(const QString &type, const QString &value) {
     if (type == "wallpaper") {
         return new WallpaperTask(value);
+    }
+    else if (type == "wmtheme") {
+        return new WmThemeTask(value);
     }
     return 0;
 }

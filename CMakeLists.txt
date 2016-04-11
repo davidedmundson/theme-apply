@@ -29,6 +29,7 @@ add_definitions(-Wall -std=c++11 )
 set(pager_SRCS
         main.cpp
         abstracttask.cpp
+        wmthemetask.cpp
         wallpapertask.cpp)
 
 add_executable(theme-apply ${pager_SRCS})
