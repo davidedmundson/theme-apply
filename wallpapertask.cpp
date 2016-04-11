@@ -21,6 +21,8 @@ void WallpaperTask::run() {
         startXfce();
     } else if (de == "kde") {
         startPlasma();
+    } else if (de == "gnome") {
+	startGnome3();
     } else {
         setError("unsupported desktop " + de);
     }
