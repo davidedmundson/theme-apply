@@ -34,6 +34,8 @@ set(pager_SRCS
 
 add_executable(theme-apply ${pager_SRCS})
 
+target_compile_definitions(theme-apply PRIVATE -DQT_NO_KEYWORDS)
+
 target_link_libraries(theme-apply
                       Qt5::Core
                       Qt5::Gui

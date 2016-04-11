@@ -30,7 +30,7 @@ void WallpaperTask::run() {
 }
 
 void WallpaperTask::startXfce() {
-    foreach(const QScreen *screen, qApp->screens()) {
+    Q_FOREACH(const QScreen *screen, qApp->screens()) {
             const QString monitorName = "monitor" + screen->name();
             for (int i=0;i<KWindowSystem::numberOfDesktops();i++) {
                 const QString workspaceName = "workspace" + QString::number(i);
