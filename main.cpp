@@ -6,14 +6,14 @@
 #include "abstracttask.h"
 
 //FIXME move to AbstractTask
-static const QStringList validTypes = QStringList({"wallpaper", "wmtheme"});
+static const QStringList validTypes = QStringList({"wallpaper", "wmtheme", "mousetheme", "icon"});
 
 int main(int argc, char **argv)
 {
     QGuiApplication app(argc, argv); //QGui as we need monitor names and no. virtual desktops in some cases
 
     QCommandLineParser parser;
-    parser.addPositionalArgument("type", "[wallpaper, wmtheme]");
+    parser.addPositionalArgument("type", "[wallpaper, wmtheme, mousetheme, icon]");
     parser.addPositionalArgument("value", "the file/name of the setting to apply");
 
     parser.process(app);

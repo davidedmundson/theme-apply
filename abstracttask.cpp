@@ -4,6 +4,8 @@
 
 #include "wallpapertask.h"
 #include "wmthemetask.h"
+#include "mousethemetask.h"
+#include "icontask.h"
 
 AbstractTask* AbstractTask::create(const QString &type, const QString &value) {
     if (type == "wallpaper") {
@@ -11,6 +13,12 @@ AbstractTask* AbstractTask::create(const QString &type, const QString &value) {
     }
     else if (type == "wmtheme") {
         return new WmThemeTask(value);
+    }
+    else if (type == "mousetheme") {
+        return new MouseThemeTask(value);
+    }
+    else if (type == "icon") {
+        return new IconTask(value);
     }
     return 0;
 }
